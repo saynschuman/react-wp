@@ -6,5 +6,5 @@ export default store => next => action => {
 
   fetch(callAPI)
     .then(res => res.json())
-    .then(response => next({...rest, response}));
+    .then(response => next({ ...rest, response }));
 };
