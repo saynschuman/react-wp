@@ -2,21 +2,18 @@ import React, { Component } from 'react';
 import './App.css';
 import { connect } from 'react-redux';
 import { loadArticles } from './actions';
+import {mapToArr} from './helpers'
 
 class App extends Component {
   componentDidMount() {
     this.props.loadArticles();
   }
-  toHtml = html => {
-    return html.dangerouslySetInnerHTML;
-  };
+
   render() {
     const stateArticles = Array.from(this.props.articles);
     const articleElements = stateArticles.map(article => (
       <li key={article.id}>
-        <h2>{article.title.rendered}</h2>
-        <h4>{article.date}</h4>
-        <div>{article.content.rendered}</div>
+        <h3>{article.title}</h3>
       </li>
     ));
     return (
@@ -30,7 +27,7 @@ class App extends Component {
 export default connect(
   state => {
     return {
-      articles: state.articlesReducer,
+      articles: mapToArr(state.articlesReducer.articles),
     };
   },
   { loadArticles },
